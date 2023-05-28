@@ -1,0 +1,94 @@
+<%- include("../../partials/header") %>
+<%- include('../../partials/meta') %>
+
+<title>멤버들 | <%= guild.name %> » <%= bot.user.username %> 대시보드</title>
+
+<section class="hero is-medium is-black" style="padding-top: 80px; padding-bottom: 50px;">
+  <br>
+  <br>
+    <div class="container">
+        <figure>
+            <img class="is-rounded" src="<%= guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=512` : 'https://i.imgur.com/RO3uUxX.png' %>" width="200" height="200">
+        </figure>
+        <br>
+        <h1 class="is-size-1" style="color: white; text-align: center;">
+            <strong class="has-text-white"><%= guild.name %> 멤버 리스트</strong>
+            <hr style="background-color: dimgray">
+            <div class="columns is-centered">
+                <div class="field is-grouped has-image-centered">
+                    <p class="control">
+                        <a href="/dashboard/server/<%= guild.id %>" class="button is-sm is-rounded is-white">
+                            <i class="fa-solid fa-angles-left" style="padding-right: 5px;"></i> 돌아갈래요?
+                        </a>
+                    </p>
+            </div>
+        </h1>
+    </div>
+</section>
+
+<div class="container" style="padding-top: 50px; padding-bottom: 30px;">
+    <div class="field middle">
+        <p class="control has-icons-left has-icons-right">
+          <span class="icon is-small is-left" style="color: white;">
+            <i class="fas fa-search"></i>
+          </span>
+          <input class="input manage" style="color: black; font-weight: bolder;" type="text" id="searchInput" onkeyup="sortAndSearchMembers()" placeholder="유저 검색하기...">
+        </p>
+    </div>
+
+    <div class="row middle">
+        <div class="container middle">
+          <table style="color: white;" id="searchTable"> 
+            <% for (let i = 0; i < members.length; i++) { %>
+              <% 
+                const roles = members[i].roles.cache.map(r => r.name);
+                const index = roles.findIndex(r => r === "@everyone");
+
+                roles.splice(index, 1);
+              %>
+              <tr>
+                <td style="font-size: 20px; text-align: center;">
+                  <div class="div-discord sm-round div-level" style="text-align: center; cursor: pointer;" onclick="location.href = '/dashboard/server/<%= guild.id %>/profile/<%= members[i].user.id %>'">
+                      <% if (members[i].user.avatar) { %>
+                          <img class="is-rounded" src="https://cdn.discordapp.com/avatars/<%= members[i].user.id %>/<%= members[i].user.avatar %>"/>
+                      <% } else { %>
+                          <img class="is-rounded" src="https://i.imgur.com/RO3uUxX.png"/>
+                      <% } %>
+                      <p style="font-size: 20px;"><b><%= members[i].displayName %></p>
+                      <p style="font-size: 17px; color: rgb(201, 249, 255);"><%= members[i].user.username %>#<%= members[i].user.discriminator %> (<%= members[i].id %>)</p>
+                      <p style="font-size: 17px;">역할: <span style="color: rgb(255, 255, 158);"><%= roles.join(", ") %></span></p>
+                      </div>
+                  <br>
+                </td>
+              </tr>
+            </div>                                          
+            <% } %>
+          </table>
+        </div>
+      </div>
+</div>
+
+<script>
+    function sortAndSearchMembers() {
+      let input, filter, table, tr, td, i, txtValue;
+
+      input = document.getElementById("searchInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("searchTable");
+      tr = table.getElementsByTagName("tr");
+      // tr = table.getElementsByClassName("tr")
+    
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+</script>
+<%- include('../../partials/footer') %>

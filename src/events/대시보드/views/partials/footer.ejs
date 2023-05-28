@@ -1,0 +1,127 @@
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <footer class="site-footer" style="background-color: #191919; color: white; cursor: default;">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-3">
+          <h6 style="font-family: 'Jua', sans-serif;">정보</h6>
+          <p class="text-justify" style="color: gray;">팀 라온은 2022년 04월 22일에 설립되어 운영중인 팀입니다.
+            <br>
+            팀 라온은 총 8인으로 이루어져 있습니다.
+            <br>
+            <a href="https://laon.dev" style="color: pink;" target="_blank">공식 홈페이지</a>에 접속해보세요
+          </p>
+        </div>
+
+        <div class="col-sm-12 col-md-3">
+          <h6 style="font-family: 'Jua', sans-serif;">개발</h6>
+          <a>
+            <img alt="로고는 https://discord.gg/rdWa9uJcFt 서버에서 제작해주셨습니다" src="/static/Logo.gif" width="150" height="150">
+          </a>
+        </div>
+
+        <div class="col-xs-6 col-md-3">
+          <h6>아람이 서비스</h6>
+          <ul class="footer-links">
+            <li><a href="https://discord.com/api/oauth2/authorize?client_id=<%= bot.user.id %>&permissions=8&scope=bot%20applications.command" target="_blank">초대하기</a></li>
+            <li><a href="https://api.aramy.net" target="_blank">아람이 API</a></li>
+            <li><a href="https://docs.aramy.net" target="_blank">아람이 API 문서</a></li>
+          </ul>
+        </div>
+
+        <div class="col-xs-6 col-md-3">
+          <h6>링크 모음</h6>
+          <ul class="footer-links">
+            <li><a href="/support" onclick="
+              const Whowon = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 10000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              Whowon.fire({
+                icon: 'success',
+                title: '아래 계좌로 후원해주세요..\n토스뱅크 1908-6630-3563'
+              })
+              ">후원하기</a></li>
+            <li><a href="https://github.com/Team-Laon" target="_blank">깃허브</a></li>
+            <li><a href="#" onclick="
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+
+            Toast.fire({
+              icon: 'success',
+              title: '아래 메일 주소로 문의해주세요\njuan@laon.dev'
+            })
+            ">문의하기</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-12">
+          <p class="copyright-text">Copyright &copy; 2022 <a style="color: pink;" href='https://laon.dev' target="_blank">Team Laon.</a> All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+</footer>
+</body>
+<!-- Channel Plugin Scripts -->
+<script>
+  (function() {
+    var w = window;
+    if (w.ChannelIO) {
+      return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+    }
+    var ch = function() {
+      ch.c(arguments);
+    };
+    ch.q = [];
+    ch.c = function(args) {
+      ch.q.push(args);
+    };
+    w.ChannelIO = ch;
+    function l() {
+      if (w.ChannelIOInitialized) {
+        return;
+      }
+      w.ChannelIOInitialized = true;
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+      s.charset = 'UTF-8';
+      var x = document.getElementsByTagName('script')[0];
+      x.parentNode.insertBefore(s, x);
+    }
+    if (document.readyState === 'complete') {
+      l();
+    } else if (window.attachEvent) {
+      window.attachEvent('onload', l);
+    } else {
+      window.addEventListener('DOMContentLoaded', l, false);
+      window.addEventListener('load', l, false);
+    }
+  })();
+  ChannelIO('boot', {
+    "pluginKey": "9dd9d531-ea79-41b9-a750-8a093e78c0a4" //please fill with your plugin key
+  });
+</script>
+<!-- End Channel Plugin -->
+</html>

@@ -1,0 +1,41 @@
+<%- include("../partials/header") %>
+<%- include("../partials/meta") %>
+
+<title>상태 | <%= guild.name %> » <%= bot.user.username %> 대시보드</title>
+
+<section class="hero is-medium is-black" style="padding-top: 80px; padding-bottom: 50px;">
+    <div class="container">
+        <br>
+        <figure>
+            <img class="is-rounded" src="<%= guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=512` : 'https://i.imgur.com/RO3uUxX.png' %>" style="display: block; margin: 0px auto;" width="200" height="200">
+        </figure>
+        <br>
+        <h1 style="text-align: center;">
+            <strong style="color: white;"><%= guild.name %> 정보</strong>
+            <hr style="background-color: dimgray">
+            <div class="columns is-centered">
+                <div class="field is-grouped has-image-centered">
+                    <p class="control">
+                        <a href="/dashboard/server/<%= guild.id %>" class="button is-sm is-rounded is-white">
+                            <i class="fa-solid fa-angles-left" style="padding-right: 5px;"></i> 돌아갈래요?
+                        </a>
+                    </p>
+            </div>
+        </h1>
+    </div>
+</section>
+
+<%
+    const owner = bot.users.cache.get(guild.ownerId);
+%>
+<div class="div-discord sm-round div-level" style="color: white; text-align: center;">
+    <h5>ID: <strong><%= guild.id %></strong></h5>
+    <p>소유자: <strong style="color: rgb(255, 255, 81)"><%= owner.tag %></strong></p>
+    <p>서버 생성일: <%= moment(guild.createdAt).format("YYYY/MM/DD ddd, hh:mm:ss") %></p>
+    <p>멤버: <strong style="color: pink;">[ 사람: <%= guild.memberCount - guild.members.cache.filter(m => m.user.bot).size %>명 ] [ 봇: <%= guild.members.cache.filter(m => m.user.bot).size %>명 ]</strong></p>
+    <p>최상위 역할: <strong style="color: <%= guild.roles.highest.hexColor %>; background-color: #23272A;"><%= guild.roles.highest.name %></strong></p>
+    <p>역할 수: <strong><%= guild.roles.cache.size %></strong>개</p>
+    <p>채널: <strong style="color: pink;">[ 채팅: <%= guild.channels.cache.filter(c => c.type === 'GUILD_TEXT').size %>개 ] [ 음성: <%= guild.channels.cache.filter(c => c.type === 'GUILD_VOICE').size %>개 ]</strong></p>
+</div>
+<br>
+<%- include("../partials/footer") %>

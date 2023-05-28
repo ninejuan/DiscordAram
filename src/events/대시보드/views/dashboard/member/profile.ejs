@@ -1,0 +1,106 @@
+<%- include("../../partials/header") %>
+<%- include("../../partials/meta") %>
+<link rel="stylesheet" href="/css/manage.css">
+<title>내 프로필 » <%= bot.user.username %> 대시보드</title>
+
+<style>
+.statusColor {
+    color: '<%= statusColor %>;'
+}
+</style>
+
+<section class="hero is-small has-text-centered is-link">
+    <div class="hero-body" style="padding-top: 50px; padding-bottom: 50px; background-repeat: no-repeat; background-position: center; background-size: cover; background-image: url(<%= user.banner ? `https://cdn.discordapp.com/banners/${user.id}/${user.banner}?size=2048` : '' %>)">
+        <figure class="image is-128x128 has-image-centered">
+            <img class="is-rounded" src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>">
+        </figure>
+        <br>
+        <h1 class="is-size-1" style="color: white; text-align: center; text-shadow: 0 0 15px pink;">
+            <%= user.username %>#<%= user.discriminator %>
+        </h1>
+    </div>
+    
+    <p class="control" style="text-align: center">
+        <a href="/dashboard/server/<%= guild.id %>/members" class="button is-sm is-rounded is-white" style="text-align: center">
+            <i class="fa-solid fa-angles-left" style="padding-right: 5px; text-align: center;"></i> 돌아갈래요?
+        </a>
+    </p>
+</section>
+<div class="div-discord sm-round div-level" style="color: white; text-align: center;">
+    <h5>ID: <%= user.id %></h5>
+    <p style="color: white;">최상위 역할: <span style="font-weight: bolder; color: <%= userObj.roles.hoist ? userObj.roles.hoist.hexColor : 0xffffff %>"><%= userObj.roles.hoist ? userObj.roles.hoist.name : '설정되지 않음' %></span></p>
+    <p style="color: white;">검열 횟수: <span style="font-weight: bolder; color: rgb(255, 172, 172);"><%= censor %></span></p>
+    <p style="color: white;">경고: <span style="font-weight: bolder; color: rgb(255, 172, 172);"><%= warn %></span></p>
+    <p style="color: white;">2단계 인증: <span style="font-weight: bolder; color: <%= mfadata.color %>"><%= mfadata.msg %></span></p>
+    <p style="color: white;">상태: <span style="font-weight: bolder; color: <%= statusColor %>;"><%= status %></span></p>
+    <p style="color: white;">니트로: <span style="font-weight: bolder; color: <% nitro.color %>;"><%= nitro.msg %></span></p>
+    <p style="color: white;">계정 생성일: <span style="font-weight: bolder;"><%= moment(userObj.user.createdAt).format("YYYY/MM/DD ddd, hh:mm:ss") %></span></p>
+    <p style="color: white;">서버 가입일: <span style="font-weight: bolder;"><%= moment(userObj.joinedAt).format("YYYY/MM/DD ddd, hh:mm:ss") %></span></p>
+</div>
+<br><br><br>
+<div class="container">
+<form role="form" id="manageform" action="/dashboard/server/<%= guild.id %>/profile/<%= user.id %>" method="POST" style="margin: auto;">
+    <h1 style="color: white;">
+        <i class="fas fa-gear" style="padding-right: 5px; color: white; text-align: center;"></i> 멤버 관리
+    </h1>
+    <div class="select" style="align-content: center;margin-left: auto; margin-right: auto;">
+        <select name="manage" form="manageform">
+            <option value="kick">추방하기</option>
+            <option value="ban">차단하기</option>
+        </select>
+    </div>
+    <div class="panel pink">
+        <button type="submit">진행</button>
+    </div>
+</form>
+<br></br>
+<form role="form" id="timeout" action="/dashboard/server/<%= guild.id %>/profile/<%= user.id %>" method="POST" style="margin: auto;">
+    <h1 style="color: white;">
+        <i class="fas fa-clock" style="padding-right: 5px; color: white; text-align: center;"></i> 타임아웃
+    </h1>
+    <div class="select" style="align-content: center;margin-left: auto; margin-right: auto;">
+        <select name="time" form="timeout">
+            <option value="10">10초</option>
+            <option value="30">30초</option>
+            <option value="60">1분</option>
+            <option value="120">2분</option>
+            <option value="300">5분</option>
+            <option value="600">10분</option>
+            <option value="3600">1시간</option>
+            <option value="43200">12시간</option>
+            <option value="86400">1일</option>
+            <option value="604800">7일 (일주일)</option>
+        </select>
+    </div>
+    <div class="panel pink">
+        <button type="submit">타임아웃</button>
+    </div>
+</form>
+</div>
+
+<% if (ts.ts == 'true') { %>
+    <meta http-equiv="refresh" content="7; url=/dashboard/server/<%=guild.id%>/profile/<%= user.id %>"></meta>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.onload = function() {
+            const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+    
+                Toast.fire({
+                  icon: 'success',
+                  title: '성공적으로 유저를 타임아웃했어요'
+                })
+        }
+    </script>
+<% } %>
+
+<%- include("../../partials/footer") %>

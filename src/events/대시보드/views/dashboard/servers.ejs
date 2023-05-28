@@ -1,0 +1,46 @@
+<%- include("../partials/header") %>
+<%- include("../partials/meta") %>
+<link rel="stylesheet" href="/css/servers.css">
+<title>서버 » <%= bot.user.username %> 대시보드</title>
+
+<section class="hero is-medium is-black" style="padding-top: 50px; padding-bottom: 50px;">
+    <div class="container">
+        <br><br><br>
+        <h1 style="color: white; font-weight: bolder; text-align: center;">
+            서버를 선택하세요
+        </h1>
+    </div>
+</section>
+
+<div class="container" style="padding-top: 50px; padding-bottom: 50px;">
+    <div class="columns is-multiline">
+        <% for (let guild of guilds) { %>
+            <div class="column post is-6">
+                <a href="/dashboard/server/<%= guild.id %>">
+                    <div class="card">
+                        <div class="card-content">
+                        <div class="media">
+                            <div class="media-left">
+                            <figure class="image is-48x48">
+                                <img class="is-rounded" src=" <%= guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}` : 'https://i.imgur.com/RO3uUxX.png' %>">
+                            </figure>
+                            </div>
+                            <div class="media-content">
+                            <h4 class="title is-4 text-middle is-pink" style="color: pink;"><%= guild.name %></h4>
+                            <% if (bot.guilds.cache.get(guild.id)) { %>
+                                <p class="title is-6 text-middle is-pink" style="color: lime;">서버 설정하기</p>
+                            <% } else { %>
+                                <p class="title is-6 text-middle is-pink" style="color: aqua;">초대하기</p>
+                            <% } %>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <br>
+                </a>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<%- include("../partials/footer") %>

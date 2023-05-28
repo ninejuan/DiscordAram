@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Pen+Script&display=swap');
+@font-face {
+    src: url("../fonts/GodoB.ttf");
+    font-family: godoB;
+}
+@font-face {
+    src: url("../fonts/GodoM.ttf");
+    font-family: godoM;
+}
+@font-face {
+    src: url("../fonts/godoMaum.ttf");
+    font-family: godoMaum;
+}
+@font-face {
+    src: url("../fonts/godoRounded.ttf");
+    font-family: godoRound;
+}
+.godo {
+    font-family: 'godoB';
+}
+.godoeng {
+    font-family: 'godoRound';
+}
+.godomaum {
+    font-family: 'godoMaum';
+}
+.godoM {
+    font-family: 'godoM';
+}
+body {
+    background-color: #3a3a3a;
+}
+.jua {
+    font-family: 'Jua', sans-serif;
+}
+img {
+    border: 3px;
+    border-radius: 70px;
+    -moz-border-radius: 70px;
+    -khtml-border-radius: 70px;
+    -webkit-border-radius: 70px;
+    display: block; 
+    margin: 0px auto;
+}
+.div-discord {
+    background-color: #202020;
+}
+.sm-round {
+    border: 3px;
+    border-radius: 7px;
+    -moz-border-radius: 7px;
+    -khtml-border-radius: 7px;
+    -webkit-border-radius: 7px;   
+}
+.div-level {
+    /* height: 50%;
+    width: 75%; */
+    padding:10px; 
+    margin: 0 auto; 
+    width:300px; 
+    height: auto;
+}
+.manage-btn {
+    border-radius: 20px;
+    -moz-border-radius: 7px;
+    -khtml-border-radius: 7px;
+    -webkit-border-radius: 7px; 
+    border: 3px solid #252525;
+    width: 120%;
+    height: 120%;
+    display:absolute;
+}
+.manage {
+    border-radius: 20px;
+    -moz-border-radius: 7px;
+    -khtml-border-radius: 7px;
+    -webkit-border-radius: 7px; 
+    border: 3px solid #252525;
+    display:absolute;
+    background-color: rgb(255, 220, 225);
+}
+.control {
+    flex: auto;
+    font-size:medium;
+}
+.ctrl-div {
+    display: flex;
+}
+.middle {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.div-servers {
+    float: left;
+    width: 33%;
+}
+.text-middle {
+    text-align: center;
+    justify-content:center;
+}
+.flex {
+    display:flex;
+}
+.is-pink {
+    color: pink;
+}

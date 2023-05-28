@@ -1,0 +1,57 @@
+<%- include("partials/header") %>
+<%- include("partials/meta") %>
+<link rel="stylesheet" href="/css/style.css">
+<title>홈 » <%= bot.user.username %> 대시보드</title>
+
+<div class="container has-text-centered" style="padding-top: 80px; text-align: center;">
+    <% if (user) { %>
+        <figure class="image is-128x128 has-image-centered">
+            <img class="is-rounded" src="<%= bot.user.displayAvatarURL({ dynamic: true, size: 128, format: 'png' }) %>">
+        </figure>
+        <br>
+        <h1 class="text-middle" style="color: white;"><strong><%= user.username %></strong>님 환영합니다</h1>
+        <p class="text-middle" style="color: white;"><b>이제 같이 사용해볼까요?</p>
+        <br>
+
+        <hr style="background-color: dimgray">
+
+        <br>
+        <div class="columns is-centered text-middle flex">
+            <div class="field is-grouped has-image-centered flex">
+                <p class="control">
+                    <a href="/dashboard/servers" class="button is-success is-rounded is-medium">
+                        <i class="fas fa-server" style="padding-right: 5px;"></i> 대시보드
+                    </a>
+                </p>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <p class="control">
+                    <a href="/i/laon" class="button is-link is-rounded is-medium">
+                        <i class="fab fa-discord" style="padding-right: 5px;"></i> 서포트 서버
+                    </a>
+                </p>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <p class="control">
+                    <a href="/logout" class="button is-danger  is-rounded is-medium">
+                        <i class="fas fa-sign-out-alt" style="padding-right: 5px;"></i> 로그아웃
+                    </a>
+                </p>
+            </div>
+        </div>
+    <% } else { %>
+        <figure class="image is-128x128 has-image-centered">
+            <img class="is-rounded" src="<%= bot.user.displayAvatarURL({ dynamic: true, size: 128, format: 'png' }) %>">
+        </figure>
+        <br>
+        <h1 class="text-middle" style="color: white; font-weight: bolder;"><%= bot.user.username %>에 로그인</h1>
+        <br>
+        <p class="text-middle" style="color: white;">
+            한번 로그인해볼까요?<br>
+            로그인해서 <%= bot.user.username %>의 기능을 사용해봐요!<br>
+        </p>
+
+        <hr style="background-color: dimgray">
+        <a href="/login" class="button is-medium is-rounded text-middle"><i class="fab fa-discord" style="padding-right: 5px;"></i> 디스코드로 로그인</a>
+        <br><br>
+    <% } %>
+</div>
+<%- include("partials/footer") %>

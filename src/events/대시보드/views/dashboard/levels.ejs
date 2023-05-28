@@ -1,0 +1,51 @@
+<%- include("../partials/header") %>
+<%- include("../partials/meta") %>
+<title>서버랭킹 » <%= bot.user.username %> 대시보드</title>
+
+<section class="hero is-medium is-black godoM" style="padding-top: 80px; padding-bottom: 50px;">
+    <div class="container">
+        <br>
+        <figure>
+            <img class="is-rounded" src="<%= guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=512` : 'https://i.imgur.com/RO3uUxX.png' %>" style="display: block; margin: 0px auto;" width="200" height="200">
+        </figure>
+        <br>
+        <h1 class="is-size-1" style="text-align: center;">
+            <strong style="color: white;"><%= guild.name %> 채팅랭킹</strong>
+            <hr style="background-color: dimgray">
+            <div class="columns is-centered">
+                <div class="field is-grouped has-image-centered">
+                    <p class="control">
+                        <a href="/dashboard/server/<%= guild.id %>" class="button is-sm is-rounded is-white">
+                            <i class="fa-solid fa-angles-left" style="padding-right: 5px; font-size: x-large;"></i> <span style="font-size: x-large;">돌아갈래요?</span>
+                        </a>
+                    </p>
+            </div>
+        </h1>
+    </div>
+</section>
+
+<div style="text-align:center;color:white" class="godoM">
+    <% if(levels == null) { %>
+            <h3 class="godoM">랭킹이 기록되지 않았어요!</h3>
+    <% } else { %>
+        <% levels.forEach(r => { %>
+            <tr class="has-text-centered" style="background-color: white;">
+                <div class="div-discord sm-round div-level">
+                    <% if (bot.users.cache.get(r.userID).avatar) { %>
+                        <figure>
+                            <img src="https://cdn.discordapp.com/avatars/<%= r.userID %>/<%= bot.users.cache.get(r.userID).avatar %>" style="display: block; margin: 0px auto;" width="200" height="200">
+                        </figure>
+                    <% } else { %>
+                        <figure>
+                            <img src="https://i.imgur.com/RO3uUxX.png" style="display: block; margin: 0px auto;" width="200" height="200">
+                        </figure>
+                    <% } %>
+                    <h1 style="font-size: 20px;" class="godoM"><%= r.position %>위 - <strong style="font-weight: bold;"><%= r.username %>#<%= r.discriminator %></strong></h1>
+                    <p style="font-size: 20px;" class="godoM">레벨 : <%= r.level.toLocaleString() %> - 경험치 : <%= r.xp.toLocaleString() %></p>
+                </div>
+            </tr>
+            <br>
+        <% }) %>
+    <% } %>
+</div>
+<%- include('../partials/footer') %>

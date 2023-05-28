@@ -1,0 +1,60 @@
+const hanspell = require('hanspell');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require('discord.js');
+
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName("맞춤법검사")
+        .setDescription("맞춤법이 맞는지 검사해요!")
+        .addStringOption(option => option
+            .setName("문구")
+            .setDescription("확인할 문구를 입력하세요!")
+            .setRequired(true)),
+    async run(interaction){
+        await interaction.deferReply()
+        const 문장 = interaction.options.getString("문구")
+        if (문장.length <= 0 || !문장) {
+            return interaction.editReply({
+                embeds: [
+                    new MessageEmbed()
+                        .setColor("ORANGE")
+                        .setTitle("❗ 에러 발생 ERROR CODE")
+                        .setDescription(`해당 메세지는 검사를 진행할 수 없는 항목이에요! (임베드 등)`)]
+            })
+        }
+        if (문장.length >= 250) {
+            return interaction.editReply({
+                embeds: [
+                    new MessageEmbed()
+                        .setColor("ORANGE")
+                        .setTitle("❗ 에러 발생 ERROR CODE")
+                        .setDescription(`250자 이상의 문장은 맞춤법 검사를 할 수 없어요!`)]
+            })
+        }
+        const end = function () {
+            console.log('맞춤법 검사기 작동 완료!')
+        }
+        const error = function (err) {
+            console.error('error: ' + err)
+        }
+        const check = function (chk) {
+            const text = new MessageEmbed()
+                .setColor("#2F3136")
+                .setDescription("\n**검사할 문장**\n```" + `${문장}` + "```\n")
+            if (chk.length <= 0){
+                text.setTitle(`맞춤법이 모두 일치해요!`)
+            }else{
+                if(chk.length >= 5){
+                    text.setTitle(`${chk.length} 개의 맞춤법을 틀리셨어요ㅠㅠ \n세종대왕님과 주시경 선생님께서 통탄할 노릇입니다ㅠㅠ`)
+                }else{
+                    text.setTitle(`${chk.length} 개의 맞춤법을 틀리셨어요ㅠㅠ`)
+                }
+                chk.forEach((elem, index) => {
+                    text.addField(`${elem.token} 🔊 __${elem.suggestions}__`, `${elem.info}`, true)
+                })
+            }
+            interaction.editReply({ embeds: [text] })
+        }
+        hanspell.spellCheckByDAUM(문장, 6000, check, end, error)
+    }
+}

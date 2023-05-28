@@ -1,0 +1,66 @@
+<%- include('./partials/header') %>
+<%- include('./partials/meta') %>
+        <link href="/css/noti.css" rel="stylesheet">
+        <link rel="stylesheet" href="/css/style.css">
+        <meta charset="utf-8">
+        <title>아람이</title>
+        <link rel="stylesheet" href="/css/servers.css">
+        <link href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,800;1,800&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+        <link rel="stylesheet" href="/css/custom.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">
+
+
+        <link rel="stylesheet" as="style" crossorigin="true" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css">
+        <link rel="stylesheet" as="style" crossorigin="true" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-jp-dynamic-subset.css">
+
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+            @font-face{font-family:Whitney;font-style:light;font-weight:300;src:url('https://cdn.skyra.pw/whitney-font/Light.woff') format('woff')}
+            @font-face{font-family:Whitney;font-style:normal;font-weight:500;src:url('https://cdn.skyra.pw/whitney-font/Normal.woff') format('woff')}
+            @font-face{font-family:Whitney;font-style:medium;font-weight:600;src:url('https://cdn.skyra.pw/whitney-font/Medium-Regular.woff') format('woff')}
+            @font-face{font-family:WhitneyMedium;font-style:medium;font-weight:600;src:url('https://cdn.skyra.pw/whitney-font/Medium-Extra.woff') format('woff')}
+            @font-face{font-family:Whitney;font-style:bold;font-weight:700;src:url('https://cdn.skyra.pw/whitney-font/Bold.woff') format('woff')}.discord-messages{color:#fff;background-color:#36393e;display:block;font-size:16px;font-family:Whitney, Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;line-height:170%;border:1px solid rgba(255, 255, 255, 0.05)}.discord-messages.discord-light-theme{color:#747f8d;background-color:#fff;border-color:#dedede}.discord-messages.discord-no-background{background-color:unset}
+        </style>
+    </head>
+    <body>
+        <section class="hero is-medium is-black" style="padding-top: 50px; padding-bottom: 50px;">
+            <div class="container">
+                <br><br>
+                <h1 style="font-family: 'Dongle'"><span style="font-family: 'Dongle', sans-serif; color: white; font-size: 70px;">공지사항</span></h1>
+                <p><span style="font-family: 'Dongle', sans-serif; color: white; font-size: 40px;">공식 디스코드 서버에 올라온 공지입니다</span></p>
+        <div class="container" style="padding-top: 20px; padding-bottom: 50px;font-family: 'Dongle', sans-serif; font-size: 25px;">
+            <div class="columns is-multiline">
+                <% msgs.forEach(msg => { %>
+                    <div class="column post is-7" style="font-family: 'Dongle', sans-serif;">
+                        <div style="font-family: 'Dongle', sans-serif;">
+                        <div class="card" style="background-color: rgb(30, 30, 30); color: white; font-family: 'Dongle', sans-serif;">
+                            <div class="card-content">
+                            <div class="media">
+                                <div class="media-left">
+                                <figure class="image is-48x48">
+                                    <img class="is-rounded" src="<%= msg.author.avatar ? `https://cdn.discordapp.com/avatars/${msg.author.id}/${msg.author.avatar}` : 'https://i.imgur.com/RO3uUxX.png' %>">
+                                </figure>
+                                </div>
+                                <div class="media-content">
+                                <h4 class="is-4" style="color: white;"><span style="font-family: 'Dongle', sans-serif; font-size: 40px;"><%= msg.author.tag %></span></h4>
+                                <p class="subtitle is-6" style="color: white;"><span style="font-family: 'Dongle', sans-serif; font-size: 25px;"><%= msg.editedTimestamp ? moment(msg.createdTimestamp).format("YYYY년 MM월 DD일, hh시 mm분 ss초 (수정됨)") : moment(msg.createdTimestamp).format("YYYY년 MM월 DD일, hh시 mm분 ss초") %></span></p>
+                                <br>
+                                <p class="subtitle is-6" style="color: white;font-family: 'Dongle', sans-serif; font-size: 25px;"><%- unified().use(markdown).use(remark2rehype).use(html).processSync(msg.content).toString().split(";").join("<br/>") %></p>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+            </div>
+        </section>
+<%- include('./partials/footer') %>

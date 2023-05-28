@@ -1,0 +1,96 @@
+<%- include("../../partials/header") %>
+<%- include("../../partials/meta") %>
+<link rel="stylesheet" href="/css/manage.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Poppins:600" rel="stylesheet">
+<title>관리 페이지 | <%= guild.name %> » <%= bot.user.username %> 대시보드</title>
+<section class="hero is-medium is-black" style="padding-top: 80px; padding-bottom: 50px;">
+    <div class="container">
+        <br>
+        <br>
+        <figure>
+            <img src="<%= guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=512` : 'https://i.imgur.com/RO3uUxX.png' %>" height="200" width="200">
+        </figure>
+        <br>
+        <h1 style="text-align: center;">
+            <strong style="color: white;"><%= guild.name %></strong> <span style="color: white;">대시보드</span>
+        </h1>
+    </div>
+</section>
+<div class="container" style="padding-top: 20px; padding-bottom: 30px;">
+    <div class="columns is-centered">
+        <div class="field is-grouped has-image-centered" style="text-align: center;">
+            <p class="control">
+                <a href="/dashboard/server/<%= guild.id %>/" class="">
+                    <i class="fa-solid fa-angles-left" style="padding-right: 5px; text-align: center;"></i> 돌아갈래요?
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <hr style="background-color: dimgray">
+    
+    <form role="form" id="logging" action="/dashboard/server/<%= guild.id %>/joinleave" method="POST" style="margin: auto; width: 400px;">
+        <h1 style="color: white;">
+            <i class="fas fa-arrows-h" style="padding-right: 5px; color: white; text-align: center;"></i> 입퇴장 알림
+        </h1><br>
+        <br>
+        <h2 style="color: white; text-align: center;">
+            현재 지정된 채널<br>
+            <span style="color: white; font-weight: bolder;">#<%= nowChannel %></span>
+        </h2><br><br>
+        <h3 style="color: white; text-align: center; font-weight: bolder;">
+            서버의 로그 알림이 전송될 채널을 골라주세요
+        </h3>
+        <div class="select">
+            <select name="channel" form="logging">
+        <% channels.forEach(ch => { %>
+            <option value="<%= ch.id %>">#<%= ch.name %></option>
+            <% }) %>
+            </select>
+        </div><br>
+        <label  style="color: white; text-align: center; font-weight: bolder;">입장 메세지</label>
+        <input class="manage input" style="color: black; font-weight: bolder;" name="JoinMsg" type="text" placeholder="<%= data ? data.WelcomeMessage : `{user}님, {guild}에서 앞으로 좋은 시간 보내세요!` %>" required size="50">
+        <br><br>
+        <label  style="color: white; text-align: center; font-weight: bolder;">퇴장 메세지</label>
+        <input class="manage input" style="color: black; font-weight: bolder;" name="LeaveMsg" type="text" placeholder="<%= data ? data.ByeMessage : `{user}님, {guild}에서 있으셨던 시간이 행복하길 바랄게요` %>" required size="50">
+        <!-- <button type="submit" class="button is-warning is-rounded is-small is-link"><i class="fas fa-paper-plane" style="padding-right: 5px;"></i> 저장하기</button> -->
+        <div class="panel pink">
+            <button type="submit">설정하기</button>
+        </div>
+        <br>
+        <br>
+    </form>
+    <% if (nowChannel !== '설정되지 않았어요') { %>
+    <form role="form" id="logoff" action="/dashboard/server/<%= guild.id %>/joinleave" method="POST" style="margin: auto; width: 300px;">
+        <input name="type" type="hidden" value="remove">
+        <div class="panel pink">
+            <button type="submit">로깅 데이터 삭제</button>
+        </div>
+    </form>
+    <% } %>
+</div>
+<% if (set) { %>
+<script>
+    window.onload = function() {
+        const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+
+            Toast.fire({
+              icon: 'success',
+              title: '설정되었어요'
+            })
+    }
+</script>
+<% } %>
+<script src="/js/check.js"></script>
+<%- include('../../partials/footer') %>

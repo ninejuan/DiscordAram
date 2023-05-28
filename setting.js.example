@@ -1,0 +1,114 @@
+/**
+ * mode 사용방법
+ * true : 메인 봇접근
+ * false : 테스트봇 접근
+ */
+
+module.exports = {
+    logname: "", // Log시 사용할 이름
+    setup: {
+        mode: false,
+        intent: 32767,
+        dokdo: {
+            prefix: "",
+            devid: [
+                "",
+                "",
+            ],
+            aliases: ['dokdo', 'dok', '독도', 'dkd']
+        }
+    },
+    serverurl: "", // 지원서버 URL
+    "Discord-Bot": {
+        prefix: "",
+        Invitationpermissions: "", // 봇 초대 시 권한 설정 (8 = 관리자)
+        tos: '', // 이용약관 URL
+        token: {
+            main: "",
+            test: ""
+        },
+        clientId: {
+            main: "",
+            test: ""
+        },
+        notice: { // 공지사항 채널 ID
+            main: "",
+            test: ""
+        }
+    },
+    database: {
+        main: {
+            id: "",
+            pw: "",
+            folder: "",
+            cluster: "",
+            code: ""
+        },
+        test: {
+            id: "",
+            pw: "",
+            folder: "",
+            cluster: "",
+            code: ""
+        },
+        Sequelize: { // SQL 사용할 경우
+            host: "",
+            database: "",
+            user: "",
+            password: ""
+        }
+    },
+    dashboard: {
+        domain: {
+            main: "",
+            test: ""
+        },
+        CLIENT_SECRET: {
+            main: "",
+            test: ""
+        },
+        port: 3000,
+    },
+    API: {
+        port: 4000
+    },
+    mail: {
+        smtp: {
+            server: '',
+            port: 465
+        },
+        account: {
+            id: '',
+            pw: ''
+        },
+        from: ''
+    },
+    Auth: { // Discord는 필수로 사용해야함
+        Google: {
+            ClientId: "",
+            ClientSecret: "",
+            RedirectUrl: "http://localhost:3000/login/google"
+        },
+        Github: {
+            ClientId: "",
+            ClientSecret: "",
+            RedirectUrl: "http://localhost:3000/login/github"
+        },
+        Kakao: {
+            JsKey: "",
+            RestKey: "",
+            ClientSecret: "",
+            RedirectUrl: "http://localhost:3000/login/kakao"
+        },
+        Naver: {
+            ClientId: "",
+            ClientSecret: "",
+            RedirectUrl: "http://localhost:3000/login/naver"
+        },
+        Discord: {
+            ClientId: "",
+            ClientSecret: "",
+            RedirectUrl: "http://localhost:3000/login/discord"
+        }
+    }
+}

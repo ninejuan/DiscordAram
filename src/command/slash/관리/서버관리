@@ -1,0 +1,90 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+const { MessageEmbed, Client, CommandInteraction, MessageActionRow, MessageButton, Permissions } = require('discord.js')
+
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("서버관리")
+    .setDescription("버튼으로 이루어진 서버 관리 창을 열어요!"),
+  async run(interaction,client) {
+    if(!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+        const embed = new MessageEmbed()
+        .setTitle("<a:error:977576443301232680>사용자에게 `ADMINISTRATOR`권한이 없어요!<a:error:977576443301232680>")
+        .setColor("#FF0000")
+        .setTimestamp()
+        interaction.reply({embeds:[embed]})
+    }
+    if(!interaction.guild.me.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+        const embed = new MessageEmbed()
+        .setTitle("<a:error:977576443301232680>봇에게 `ADMINISTRATOR`권한이 없어요!<a:error:977576443301232680>")
+        .setColor("#FF0000")
+        .setTimestamp()
+        interaction.reply({embeds:[embed]})
+    }
+    //await interaction.reply(`:ping_pong:  Pong! ${}ms`)
+    const messagechannel = interaction.channel
+        const row = new MessageActionRow().addComponents(
+            new MessageButton()
+                .setCustomId("mod_channel")
+                .setLabel("채널 관리")
+                .setStyle("SECONDARY"),
+            new MessageButton()
+                .setCustomId("mod_logging")
+                .setLabel("로깅 설정")
+                .setStyle('DANGER'),
+            new MessageButton()
+                .setCustomId("mod_user")
+                .setLabel("유저 관리")
+                .setStyle('PRIMARY'),
+            new MessageButton()
+                .setCustomId("mod_server")
+                .setLabel("서버 관리")
+                .setStyle('SUCCESS'),
+            new MessageButton()
+                .setCustomId('mod_etc')
+                .setLabel("기타 설정")
+                .setStyle('SECONDARY')
+        );
+        const editrow = new MessageActionRow().addComponents(
+          new MessageButton()
+              .setCustomId("mod_channel")
+              .setDisabled(true)
+              .setLabel("채널 관리")
+              .setStyle("SECONDARY"),
+          new MessageButton()
+              .setCustomId("mod_logging")
+              .setDisabled(true)
+              .setLabel("로깅 설정")
+              .setStyle('DANGER'),
+          new MessageButton()
+              .setCustomId("mod_user")
+              .setDisabled(true)
+              .setLabel("유저 관리")
+              .setStyle('PRIMARY'),
+          new MessageButton()
+              .setCustomId("mod_server")
+              .setDisabled(true)
+              .setLabel("서버 관리")
+              .setStyle('SUCCESS'),
+          new MessageButton()
+              .setCustomId('mod_etc')
+              .setDisabled(true)
+              .setLabel("기타 설정")
+              .setStyle('SECONDARY')
+      );
+        const embed = new MessageEmbed()
+            .setTitle("서버 관리 패널!")
+            .setDescription("버튼으로 서버를 손쉽게 관리해요!")
+            .setColor(0xff69b4)        
+        const editembed = new MessageEmbed()
+            .setTitle("서버 관리 패널!")
+            .setDescription("버튼으로 서버를 손쉽게 관리해요!")
+            .setFooter("100초가 지나 버튼이 사라졌어요!")
+            .setColor(0xff69b4)        
+            interaction.reply({ fetchReply: true, embeds: [embed], components: [row], ephemeral: true })
+            setTimeout(() => {
+              interaction.editReply({embeds: [editembed], components: [editrow], ephemeral: true})
+            }, 100000);
+        const collector = message.createMessageComponentCollector({ componentType: 'BUTTON', time: 15000 });
+        
+    }
+  }

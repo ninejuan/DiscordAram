@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("../partials/meta") %>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서버 가입에 실패했어요...</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+    <link href="/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/secure_link.css">
+</head>
+<body>
+    <section>
+        <div class="container">
+          <div class="guildname">
+            <div>
+            <figure class="image is-64x64 has-image-centered center">
+              <img class="is-rounded" src="<%= guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=512` : 'https://i.imgur.com/RO3uUxX.png' %>">
+            </figure>
+            </div>
+            <h2 class="subj has-text-centered" style="color: white; font-weight: bolder;"><%= guild.name %></h2>
+            <br>
+            <h2 style="color: white; font-weight: bolder; font-size: 40px;" class="has-text-centered">서버 가입에 실패했어요...</h2>
+            <h2 style="color: white; font-weight: bolder; font-size: 40px" class="has-text-centered">만일 오류라고 생각한다면 하단 채널톡으로 문의주세요</h2>
+          </div>
+        </div>
+      </section>
+      <%- include("../partials/secinv_chtalk") %>
+</body>
+</html>

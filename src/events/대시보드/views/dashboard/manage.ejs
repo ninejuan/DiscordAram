@@ -1,0 +1,117 @@
+<%- include("../partials/header") %>
+<%- include("../partials/meta") %>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="/css/manage.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Poppins:600" rel="stylesheet">
+<title>관리 페이지 | <%= guild.name %> » <%= bot.user.username %> 대시보드</title>
+<section class="hero is-medium is-black" style="padding-top: 80px; padding-bottom: 50px;">
+    <div class="container">
+        <br>
+        <br>
+        <figure>
+            <img src="<%= guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}?size=512` : 'https://i.imgur.com/RO3uUxX.png' %>" height="200" width="200">
+        </figure>
+        <br>
+        <h1 style="text-align: center;">
+            <strong style="color: white;"><%= guild.name %></strong> <span style="color: white;">대시보드</span>
+        </h1>
+    </div>
+</section>
+
+<div class="container" style="padding-top: 20px; padding-bottom: 30px;">
+    <div class="columns is-centered">
+        <div class="field is-grouped has-image-centered ctrl-div" style="text-align: center;">
+            <p class="control">
+                <a href="/dashboard/server/<%= guild.id %>/members" class="manage-btn">
+                    <i class="fas fa-users" style="padding-right: 5px;"></i> 멤버
+                </a>
+            </p>
+            <p class="control">
+                <a href="/dashboard/server/<%= guild.id %>/channels" class="manage-btn">
+                    <i class="fas fa-hashtag" style="padding-right: 5px;"></i> 채널
+                </a>
+            </p>
+            <p class="control">
+                <a href="/dashboard/server/<%= guild.id %>/stats" class="manage-btn">
+                    <i class="fa-solid fa-chart-column" style="padding-right: 5px;"></i> 서버 정보
+                </a>
+            </p>
+            <p class="control">
+                <a href="/dashboard/server/<%= guild.id %>/levels" class="manage-btn">
+                    <i class="fa-solid fa-chart-column" style="padding-right: 5px;"></i> 채팅 랭킹
+                </a>
+            </p>
+            </div>
+            <div class="field is-grouped has-image-centered ctrl-div" style="text-align: center;">
+            <p class="control">
+                <a href="/dashboard/server/<%= guild.id %>/ticket" class="manage-btn">
+                    <i class="fas fa-ticket" style="padding-right: 5px;"></i> 티켓 생성
+                </a>
+            </p>
+            <p class="control">
+                <a href="/dashboard/server/<%= guild.id %>/verifyrole" class="manage-btn">
+                    <i class="fas fa-user" style="padding-right: 5px;"></i> 인증 설정
+                </a>
+            </p>
+            <p class="control">
+                <a href="/dashboard/server/<%= guild.id %>/autovoice" class="manage-btn">
+                    <i class="fas fa-microphone" style="padding-right: 5px;"></i> 오토보이스
+                </a>
+            </p>
+            </div>
+            <div class="field is-grouped has-image-centered ctrl-div" style="text-align: center;">
+            <p class="control">
+                <a href="/dashboard/server/<%= guild.id %>/music" class="manage-btn">
+                    <i class="fas fa-music" style="padding-right: 5px;"></i> 셋업뮤직
+                </a>
+            </p>
+            <p class="control">
+                <a href="/dashboard/server/<%= guild.id %>/logging" class="manage-btn">
+                    <i class="fas fa-history" style="padding-right: 5px;"></i> 로그설정
+                </a>
+            </p>
+            <p class="control">
+                <a href="/dashboard/server/<%= guild.id %>/joinleave" class="manage-btn">
+                    <i class="fas fa-arrows-h" style="padding-right: 5px;"></i> 입퇴장로그
+                </a>
+            </p>
+            </div>
+            <div class="field is-grouped has-image-centered ctrl-div" style="text-align: center;">
+            <p class="control">
+                <a href="/dashboard/server/<%= guild.id %>/secureinv" class="manage-btn">
+                    <i class="fas fa-fingerprint" style="padding-right: 5px;"></i> 보안링크
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <hr style="background-color: dimgray">
+    
+    <form role="form" action="/dashboard/server/<%= guild.id %>" method="POST" style="margin: auto; width: 300px;">
+        <h1 style="color: white;">
+            <i class="fas fa-gear" style="padding-right: 5px; color: white; text-align: center;"></i> 설정 변경
+        </h1>
+        <label  style="color: white; text-align: center;">접두사</label>
+        <input class="manage input" style="color: black; font-weight: bolder;" name="prefix" type="text" placeholder="<%= serverData.prefix ? serverData.prefix : '아람!' %>">
+        <br>
+        <br>
+        <div class="select">
+            <select>
+        <% channels.forEach(ch => { %>
+            <option value="<%= ch.id %>">#<%= ch.name %></option>
+            <% }) %>
+            </select>
+        </div>
+        <!-- <button type="submit" class="button is-warning is-rounded is-small is-link"><i class="fas fa-paper-plane" style="padding-right: 5px;"></i> 저장하기</button> -->
+        <div class="panel pink">
+            <button type="submit">저장하기</button>
+        </div>
+        <br>
+        <br>
+        <small style="color: white;">저장하기 버튼을 누른 후 페이지가 새로 고침됩니다.</small>
+        <br>
+    </form>
+</div>
+<script src="/js/check.js"></script>
+<%- include('../partials/footer') %>

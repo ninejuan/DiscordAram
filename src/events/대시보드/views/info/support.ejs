@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+<%- include('../partials/meta') %>
+<title>예시 » <%= bot.user.username %> 대시보드</title>
+
+<style>
+    h1, h2, h3, h4, h5, h6 {
+        color: white;
+        text-align: center;
+    }
+</style>
+
+<div class="container has-text-centered" style="padding-top: 80px;">
+    <div class="is-centered">
+        <br>
+        <h1><strong>후원 방법 안내</strong></h1>
+        <br>
+        <h2>1. 아래 계좌로 원하는 액수의 후원금을 송금한다. <br></h2>
+        <h4><%= account %></h4>
+        <br>
+        <h2>2. 문의 메일로 송금한 내역을 캡쳐한 사진, 자신의 디스코드 닉네임(ex 주안#9541)을 보낸다<br><br></h2>
+        <h2>3. 만일 본인이 팀 라온 공식 디스코드 서버에 이미 가입했다면 빠르면 1일, 늦으면 3일 이내에 후원자 역할이 들어오는지 확인한다.<br><br></h2>
+        <h2>4. 만일 3일이 지났는데도 후원자 역할이 들어오지 않는다면? 문의 채널에서 티켓을 열어 아무나 멘션 후 메일 확인을 요청한다.<br><br></h2>
+        <h3 style="color: pink; cursor: pointer;" onclick="window.location.href = '/i/laon'"><strong>팀 라온 디스코드 서버 가입하기</strong></h3>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>
